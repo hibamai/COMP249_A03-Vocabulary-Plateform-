@@ -6,11 +6,11 @@ public class Vocab {
 
     public Vocab(){
         this.name = "";
-        this.words = null;
+        this.words = new SinglyLinkedList();
     }
     public Vocab (String name){
         this.name = name;
-        this.words = null;
+        this.words = new SinglyLinkedList();
     }
 
     public String getName(){

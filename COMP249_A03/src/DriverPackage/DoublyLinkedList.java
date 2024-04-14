@@ -7,7 +7,7 @@ public class DoublyLinkedList {
         private Node previous;
 
         public Node(){
-            this.vocab = null;
+            this.vocab = new Vocab();
             this.next = null;
             this.previous = null;
         }
@@ -15,6 +15,12 @@ public class DoublyLinkedList {
             this.vocab = vocab;
             this.next  = next;
             this.previous = previous;
+        }
+        public String getName(){
+            return this.vocab.getName();
+        }
+        public Vocab getVocab(){
+            return this.vocab;
         }
         //End of the inner class Node
     }
@@ -27,13 +33,50 @@ public class DoublyLinkedList {
     public DoublyLinkedList(Node head){
         this.head = head;
     }
-    public void display(){ //to print out all the nodes in this linked list
-        Node position = head; 
-
-        while(position!=null){
-            System.out.println(position.vocab + "\n");
-            position = position.next;
+    public Vocab getVocab(String topicName){
+        if(head!=null){
+            Node position = findTopic(topicName);
+            return position.getVocab();
         }
+        else{
+            return null;
+        }
+    }
+    public boolean addTopic(String topic){
+        if(head==null){
+            head = new Node(new Vocab(topic), null, null);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public void display(String topic){ //to print out all the nodes in this linked list
+        if (head!=null){
+        Node position = findTopic(topic); 
+        System.out.println(position.vocab);
+        }
+
+        else{
+            System.out.println("This section is empty");
+        }
+    }
+    public int displayTopics(){
+        int i = 0;
+       if(head!=null){
+        Node position = head;
+        i++;
+        while (position!=null) {
+            System.out.println(i + " " + position.getName()+"\n");
+            position = position.next;
+            i++;
+        }
+        System.out.println("0 Exit");
+       }
+       else{
+        System.out.println("This section is empty");
+       }
+       return i;
     }
     public Node findTopic(String topic){
         Node position = head;
@@ -94,6 +137,25 @@ public class DoublyLinkedList {
             System.out.println("The topic "+topic+" does not exist");
             return false;
         }
+    }
+    public String nameOfTopicByIndex(int i ){
+        String name = "";
+        if(head!=null){
+            int j = 1;
+            Node position = head;
+            while (position !=null) {
+                if (j==i){
+                    name = position.getName();
+                    j++;
+                }
+                
+            }
+        }
+
+        return name;
+    }
+    public Node getHead(){
+        return this.head;
     }
     
 }
