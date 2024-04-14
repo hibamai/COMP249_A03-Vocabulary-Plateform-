@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) {
+        System.out.println("hello");
         Scanner input = new Scanner (System.in);
         boolean quit = false;
         DoublyLinkedList topicList = new DoublyLinkedList();
@@ -59,8 +60,6 @@ public class Driver {
                     int i1 = topicList.displayTopics();
                     System.out.println("-----------------------------------");
                     System.out.print("Enter your choice: ");
-
-                    
                         String input2String = input.next(); 
                         try {
                             input1 = Integer.parseInt(input2String);  
@@ -76,6 +75,7 @@ public class Driver {
                         else{
                             String topicName1 = topicList.nameOfTopicByIndex(input1);
                             topicList.display(topicName1);
+                            continue;
                         }
 
                     }
@@ -115,9 +115,8 @@ public class Driver {
                         System.out.print("Enter the name of the topic: ");
                         String topicAdd2 = input.next();
                         if (topicList.insertBefore(topicName2, topicAdd2)){
-                            System.out.println("printed");
                             System.out.println("Enter a word - to quit, press Enter: ");
-                            System.out.println("Before");
+                            
                             String newWords = input.nextLine();
                             System.out.println("After");
                             String[] newWordsArr = newWords.split(" ");
@@ -139,9 +138,11 @@ public class Driver {
                     String topicAdd2 = input.next();
                     if (topicList.addTopic(topicAdd2)){
                         System.out.println("Enter a word - to quit, press Enter: ");
-                            while (input.hasNext()){
-                                Vocab vocab2 = topicList.getVocab(topicAdd2);
-                                vocab2.addWord(input.next());
+                        String newWords = input.nextLine();
+                        String[] newWordsArr = newWords.split(" ");
+                        Vocab vocab2 = topicList.getVocab(topicAdd2);
+                            for (int i = 0; i<newWordsArr.length; i++){
+                                vocab2.addWord(newWordsArr[i]);
                             }
                     }
                     else{
@@ -178,6 +179,8 @@ public class Driver {
                 
             }
         }while(!quit);
+
+        input.close();
     }
     
 }
