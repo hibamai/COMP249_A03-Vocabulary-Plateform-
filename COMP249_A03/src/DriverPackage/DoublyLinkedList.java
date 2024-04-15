@@ -42,6 +42,31 @@ public class DoublyLinkedList {
             return null;
         }
     }
+
+//method to add a new topic in the linked list
+  public void addTopic1(String topic) {
+    Node newNode = new Node(new Vocab(topic), null, null);
+    Node current = head;
+    //if the list is empty
+    if (head == null) {
+      head = newNode;
+      return;
+    }
+    //if the list has at least 1 element
+    else {
+      while (current != null) {
+        if (current.next == null) {
+          current.next = newNode; //add the new node at the end of the list
+          newNode.previous = current; //set the previous of the new node to the current node
+          return;
+        } else {
+          current = current.next; //move the next node
+        }
+      }
+    }
+  }
+
+
     public boolean addTopic(String topic){
         if(head==null){
             head = new Node(new Vocab(topic), null, null);
@@ -54,13 +79,13 @@ public class DoublyLinkedList {
     public void display(String topic){ //to print out all the nodes in this linked list
         if (head!=null){
         Node position = findTopic(topic); 
-        System.out.println(position.vocab);
+        System.out.println(position.vocab.display());
         }
-
         else{
             System.out.println("This section is empty");
         }
     }
+    
     public int displayTopics(){
         int i = 0;
        if(head!=null){
@@ -169,7 +194,9 @@ public class DoublyLinkedList {
             System.out.println("The topic "+topic+" does not exist");
             return false;
         }
-    }   
+    }       
+
+
     public Node getHead(){
         return this.head;
     }

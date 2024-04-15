@@ -35,18 +35,39 @@ public class SinglyLinkedList {
      public String toString(){
         String output = "";
         if (head!=null){
-            Node position = head;
-            int i = 1;
-
+        Node position = head;
+        while(position.next!=null){
+            position = position.next;
+        }
+        
             while (position!=null){
-                output+= i+". "+position.word+"\t";
-                i++;
-                position = position.next;
+                output+= position.word+"\n";
+                position = findPreviousNode(position);
             }
         }
         return output;
      }
-     public boolean findWordBoolean(String word){
+     public String display(){
+        String output = "";
+        if (head!=null){
+        Node position = head;
+        while(position.next!=null){
+            position = position.next; //position is now the last node
+        }
+        
+            int i=1;
+            while (position!=null){
+                output+= i+". "+ position.word+"\t";
+                position = findPreviousNode(position);
+                i++;
+            }
+        }
+        return output;
+     }
+
+
+     
+     public boolean findWordBoolean(String word){ //returns true if the word exists in the list and false otherwise
         boolean found = false;
         if(head!=null){
             Node position = head;
@@ -85,33 +106,47 @@ public class SinglyLinkedList {
                 this.head = newHead;
             return true;
        }
+       else if (findWordBoolean(word)){
+            System.out.println("This word is already in the list");
+            return false;
+       }
        else{
         return false;
        }
      }
-     public boolean removeWord(String word){
+     public boolean removeWordL(String word){
         if (this.head == null){
             return false;
         }
         else if (!findWordBoolean(word)){
+            System.out.println("This word is not on the list");
             return false;
+        }
+        else if(word.equals(head.word)){
+            head = head.next;
+            System.out.println("Your word has been removed successfully");
+            return true;
         }
         else{
             Node position = findWordNode(word);
             Node previous = findPreviousNode(position);
+            System.out.println(previous.word);
             previous.next = position.next;
+            System.out.println("Your word has been removed successfully");
+            
             return true;
         }
      }
      public Node findPreviousNode(Node node){
+        String value = node.word;
+        String headValue = head.word;
         if (head == null){
             return null;
         }
-        else{
-            if(node.word.equals(head.word)){
+        else if(value.equals(headValue)){ //node is the first node (the head)
                 return null;
             }
-            else{
+        else{
                 Node position = head;
                 Node previousNode = new Node();
                 boolean found = false;
@@ -124,22 +159,35 @@ public class SinglyLinkedList {
                 }
                 return previousNode;
             }
-        }
+        
      }
      public String displayAllWordsThatBegin(char letter){
         if (head!=null){
             Node position = this.head;
-            String output = "All the words that begin with the letter "+letter +"\n";
+            String output ="";
             int i = 1;
             while (position != null){
                 char firstChar = position.word.charAt(0);
                 if (firstChar == letter){
                     output+= i+". "+position.word+"\t";
+                    i++;
                 }
+                position = position.next;
             }
             return output;
         }
         return "";
+     }
+     public boolean replaceWordL(String word, String newWord){
+        if(findWordBoolean(word)){
+            Node position = findWordNode(word);
+            position.word = newWord;
+            return true;
+        }
+        else{
+            System.out.println("This word does not exist");
+            return false;
+        }
      }
 
 }

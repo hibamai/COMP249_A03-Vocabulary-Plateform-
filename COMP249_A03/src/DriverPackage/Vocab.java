@@ -16,9 +16,19 @@ public class Vocab {
     public String getName(){
         return this.name;
     }
+
+    public SinglyLinkedList getWords(){
+        return this.words;
+    }
+
     public String toString(){ //* */
-        String output = "Topic: "+this.name +"\n";
+        String output = "#"+this.name +"\n";
         output+=this.words.toString();
+        return output;
+    }
+    public String display(){
+        String output = "Topic : "+this.name +"\n";
+        output+=this.words.display();
         return output;
     }
     public boolean findWord(String word){ //* */
@@ -28,10 +38,13 @@ public class Vocab {
         return this.words.addWord(word);
     }
     public boolean removeWord(String word){ //* */
-       return this.removeWord(word);
+       return this.words.removeWordL(word);
     }
     public String allWordsThatStart(char letter){ //* */
-        return this.words.displayAllWordsThatBegin(letter);
+        return "All the words that begin with the letter "+letter +" in the topic: "+name+"\n" + this.words.displayAllWordsThatBegin(letter);
+    }
+    public boolean replaceWord(String word, String newWord){
+        return this.words.replaceWordL(word, newWord);
     }
 
 }
