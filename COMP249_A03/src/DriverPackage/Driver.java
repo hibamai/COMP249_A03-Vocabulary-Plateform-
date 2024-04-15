@@ -9,6 +9,7 @@ public class Driver {
         Scanner input = new Scanner (System.in);
         boolean quit = false;
         DoublyLinkedList topicList = new DoublyLinkedList();
+        ArrayList<String> topicArr = new ArrayList<String>();
         do{
         //Printing the menu 
         boolean validChoice = true;
@@ -57,15 +58,11 @@ public class Driver {
                     System.out.println("-----------------------------------");
 
                     if (topicList!=null && topicList.getHead()!=null){
-                    int i1 = topicList.displayTopics();
+                    int i1 = topicList.displayTopics()-1;
                     System.out.println("-----------------------------------");
                     System.out.print("Enter your choice: ");
-                        String input2String = input.next(); 
-                        try {
-                            input1 = Integer.parseInt(input2String);  
-                        } catch (NumberFormatException e) {
-                            System.out.println("You have entered an invalid choice");
-                        }
+                        input1 = input.nextInt(); 
+
                         if(input1>i1 || input1<0){
                             System.out.println("You have entered an invalid choice");
                         }
@@ -73,9 +70,9 @@ public class Driver {
                             System.out.println("You will immediately exit this section");
                         }
                         else{
-                            String topicName1 = topicList.nameOfTopicByIndex(input1);
+                            String topicName1 = topicArr.get(input1-1);
+                            System.out.println(topicName1);
                             topicList.display(topicName1);
-                            continue;
                         }
 
                     }
@@ -93,17 +90,13 @@ public class Driver {
                 System.out.println("-----------------------------------");
                 
                 if (topicList!=null && topicList.getHead()!=null){
-                int i2 = topicList.displayTopics();
+                int i2 = topicList.displayTopics()-1;
+                System.out.println(i2);
                 System.out.println("-----------------------------------");
                 System.out.print("Enter your choice: ");
 
                 
-                    String input2String = input.next(); 
-                    try {
-                        input2 = Integer.parseInt(input2String);  
-                    } catch (NumberFormatException e) {
-                        System.out.println("You have entered an invalid choice");
-                    }
+                    input2 = input.nextInt(); 
                     if(input2>i2 || input2<0){
                         System.out.println("You have entered an invalid choice");
                     }
@@ -111,20 +104,19 @@ public class Driver {
                         System.out.println("You will immediately exit this section");
                     }
                     else{
-                        String topicName2 = topicList.nameOfTopicByIndex(input2);
+                        String topicName2 = topicArr.get(input2-1);
                         System.out.print("Enter the name of the topic: ");
                         String topicAdd2 = input.next();
+                        
                         if (topicList.insertBefore(topicName2, topicAdd2)){
+                            topicArr.add(input2-1, topicAdd2);
                             System.out.println("Enter a word - to quit, press Enter: ");
-                            
+                            input.nextLine();
                             String newWords = input.nextLine();
-                            System.out.println("After");
                             String[] newWordsArr = newWords.split(" ");
-
+                            Vocab vocab2 = topicList.getVocab(topicAdd2);;
                             for(int i = 0; i<newWordsArr.length; i++){
-                                Vocab vocab2 = topicList.getVocab(topicAdd2);
                                 vocab2.addWord(newWordsArr[i]);
-                                System.out.println(newWordsArr[i]);
                             }
                         }
                         else{
@@ -136,8 +128,10 @@ public class Driver {
                     System.out.println("Since there are no topics, you will enter the first one");
                     System.out.print("Enter the name of the topic: ");
                     String topicAdd2 = input.next();
+                    topicArr.add(topicAdd2);
                     if (topicList.addTopic(topicAdd2)){
                         System.out.println("Enter a word - to quit, press Enter: ");
+                        input.nextLine();
                         String newWords = input.nextLine();
                         String[] newWordsArr = newWords.split(" ");
                         Vocab vocab2 = topicList.getVocab(topicAdd2);
@@ -151,10 +145,95 @@ public class Driver {
                 }
                     break;
                 case 3: //insert a topic after another one
+                input2 = 0;
+                System.out.println("-----------------------------------");
+                System.out.println("           Pick a topic            ");
+                System.out.println("-----------------------------------");
+                
+                if (topicList!=null && topicList.getHead()!=null){
+                int i2 = topicList.displayTopics()-1;
+                System.out.println("-----------------------------------");
+                System.out.print("Enter your choice: ");
+
+                
+                    input2 = input.nextInt(); 
+                    if(input2>i2 || input2<0){
+                        System.out.println("You have entered an invalid choice");
+                    }
+                    else if (input2==0){
+                        System.out.println("You will immediately exit this section");
+                    }
+                    else{
+                        String topicName2 = topicArr.get(input2-1);
+                        System.out.print("Enter the name of the topic: ");
+                        String topicAdd2 = input.next();
+                        if (topicList.insertAfter(topicName2, topicAdd2)){
+                            topicArr.add(input2, topicAdd2);
+                            System.out.println("Enter a word - to quit, press Enter: ");
+                            input.nextLine();
+                            String newWords = input.nextLine();
+                            String[] newWordsArr = newWords.split(" ");
+                            Vocab vocab2 = topicList.getVocab(topicAdd2);;
+                            for(int i = 0; i<newWordsArr.length; i++){
+                                vocab2.addWord(newWordsArr[i]);
+                            }
+                        }
+                        else{
+                            System.out.println("Your topic could not be added");
+                         }
+                        }
+                }   
+                else{
+                    System.out.println("Since there are no topics, you will enter the first one");
+                    System.out.print("Enter the name of the topic: ");
+                    String topicAdd2 = input.next();
+                    topicArr.add(topicAdd2);
+                    if (topicList.addTopic(topicAdd2)){
+                        System.out.println("Enter a word - to quit, press Enter: ");
+                        input.nextLine();
+                        String newWords = input.nextLine();
+                        String[] newWordsArr = newWords.split(" ");
+                        Vocab vocab2 = topicList.getVocab(topicAdd2);
+                            for (int i = 0; i<newWordsArr.length; i++){
+                                vocab2.addWord(newWordsArr[i]);
+                            }
+                    }
+                    else{
+                        System.out.println("Your topic could not be added");
+                    }
+                }
 
                     break;
                 case 4: //remove a topic
+                input2 = 0;
+                System.out.println("-----------------------------------");
+                System.out.println("           Pick a topic            ");
+                System.out.println("-----------------------------------");
+                
+                if (topicList!=null && topicList.getHead()!=null){
+                int i2 = topicList.displayTopics()-1;
+                System.out.println("-----------------------------------");
+                System.out.print("Enter your choice: ");
 
+                
+                    input2 = input.nextInt(); 
+                    if(input2>i2 || input2<0){
+                        System.out.println("You have entered an invalid choice");
+                    }
+                    else if (input2==0){
+                        System.out.println("You will immediately exit this section");
+                    }
+                    else{
+                        String topicName2 = topicArr.get(input2-1);
+                        if(topicList.removeTopic(topicName2)){
+                            topicArr.remove(input2-1);
+                            System.out.println("The topic "+topicName2+" has been removed");
+                        }
+                        else{
+                            System.out.println("The topic could not be removed");
+                        }
+                    }
+                }
                     break;
                 case 5: //modify a topic
 

@@ -99,23 +99,42 @@ public class DoublyLinkedList {
     }
     public boolean insertBefore(String topic, String addThis){
         //we should find if the topic exists
-        if (this.findTopic(topic)!=null){
-            Node position = this.findTopic(topic);
+        Node position = findTopic(topic);
+        if(position!=null){
             Node previous = position.previous;
-            Node theOne = new Node(new Vocab(topic), previous, position);
+            if(previous!=null){
+                Node adding = new Node(new Vocab(addThis), previous, position);
+                position.previous = adding;
+                previous.next = adding;
+            }
+            else{
+                Node adding = new Node (new Vocab(addThis), null, position);
+                position.previous = adding;
+                head = adding;
+            }
             return true;
+
         }
         else{
-            System.out.println("The topic "+topic+" does not exist");
+            System.out.println("This topic does not exist");
             return false;
         }
     }
     public boolean insertAfter(String topic, String addThis){
         //find out if the topic exists
-        if (this.findTopic(topic)!=null){
-            Node position = this.findTopic(topic);
+        Node position = this.findTopic(topic);
+        if (position!=null){
             Node next = position.next;
-            Node theOne = new Node(new Vocab(topic), position, next);
+            if(next!=null){
+                Node theOne = new Node(new Vocab(addThis), position, next);
+                position.next = theOne;
+                next.previous = theOne;
+            }
+            else{
+                Node theOne = new Node (new Vocab(addThis), position, null);
+                position.next = theOne;
+            }
+            
             return true;
         }
         else{
@@ -126,36 +145,36 @@ public class DoublyLinkedList {
     public boolean removeTopic(String topic){
         //find out if the topic exists
         if (this.findTopic(topic)!=null){
-            Node position = this.findTopic(topic);
+            Node position = findTopic(topic);
             Node next = position.next;
             Node previous = position.previous;
-            next.previous = previous;
-            previous.next = next;
+
+            //our 4 cases
+            if(next==null && previous==null){ //we only have the head
+                head = null;
+            }
+            else if(previous == null&&next!=null){ //we are trying to remove the head
+                head = next;
+            }
+            else if (previous!=null && next==null){ //we are trying to remove the tail
+                previous.next = null;
+            }
+            else{//we are a removing a node from the middle
+                position.next = next;
+                next.previous = previous;
+            }
             return true;
         }
         else{
             System.out.println("The topic "+topic+" does not exist");
             return false;
         }
-    }
-    public String nameOfTopicByIndex(int i ){
-        String name = "";
-        if(head!=null){
-            int j = 1;
-            Node position = head;
-            while (position !=null) {
-                if (j==i){
-                    name = position.getName();
-                    j++;
-                }
-                
-            }
-        }
-
-        return name;
-    }
+    }   
     public Node getHead(){
         return this.head;
+    }
+    public String getHeadString(){
+        return this.head.getName();
     }
     
 }
