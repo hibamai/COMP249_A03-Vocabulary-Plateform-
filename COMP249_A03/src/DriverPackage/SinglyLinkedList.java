@@ -1,5 +1,11 @@
 package DriverPackage;
 
+/**
+ * @author Lan Thi Duong (ID: 40276821) and Hiba Maifi (ID: 40289223)
+ * COMP249 - Assignment #3
+ * Monday, April 15th
+ */
+
 public class SinglyLinkedList {
     private class Node{
         private String word;
