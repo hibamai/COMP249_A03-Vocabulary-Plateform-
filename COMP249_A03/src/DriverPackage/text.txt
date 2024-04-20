@@ -84,23 +84,6 @@ sweater
 wear(out)
 wool(len)
 
-#Colours
-(dark/light/pale)
-gold
-orange
-silver
-black
-golden
-pink
-yellow
-blue
-green
-purple
-white
-brown
-grey
-red
-
 #Communications and Technology
 access
 delete
@@ -189,89 +172,6 @@ website
 switch off
 text message
 volume
-
-#Education
-absent
-advanced
-arithmetic
-art
-beginner
-bell
-biology
-blackboard
-board
-book
-bookshelf
-break(time)
-break up
-certificate
-chemistry
-class
-classroom
-course
-curriculum
-degree
-desk
-dictionary
-diploma
-drama
-economics
-elementary
-essay
-geography
-history
-handwriting
-homework
-information
-instructions
-intermediate
-language
-learn
-lesson
-level
-library
-mark
-mathematics
-math(s)
-music
-nature
-studies
-note
-notice
-pencil case
-photography
-physics
-practice(n)
-practise(v)
-read
-register
-remember
-rubber
-ruler
-school
-science
-secondary
-student
-study(v)
-subject
-teach
-teacher
-technology
-term
-clever
-coach
-college
-composition
-instructor
-IT
-know
-laboratory (lab)
-primary
-project
-pupil
-qualification
-test
-university
 
 #Entertainment and Media
 act (v)
